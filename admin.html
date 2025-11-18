@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | The Bat Cave</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">🦇 Admin <span>Panel</span></div>
+        <ul>
+            <li><a href="index.html">Return to Site</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div id="login-screen" style="max-width: 400px; margin: 50px auto; text-align: center;">
+            <h2>Staff Login</h2>
+            <p style="margin-bottom: 10px;">Enter password to view bookings</p>
+            <input type="password" id="admin-pass" placeholder="Password" style="margin-bottom: 10px;">
+            <button onclick="adminLogin()">Login</button>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #555;">Hint: admin123</p>
+        </div>
+
+        <div id="dashboard" class="admin-panel" style="display: none;">
+            <header>
+                <h1>Booking Management</h1>
+                <p>Incoming reservation requests from students.</p>
+            </header>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Customer</th>
+                        <th>ID #</th>
+                        <th>Duration</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body">
+                    </tbody>
+            </table>
+            
+            <button onclick="localStorage.removeItem('batCaveBookings'); loadAdminData();" style="background-color: var(--danger); width: auto; margin-top: 20px;">Clear All Records</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

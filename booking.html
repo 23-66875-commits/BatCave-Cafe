@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Room | The Bat Cave Cafe</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* --- 1. VARIABLES & RESET --- */
+        :root {
+            --bg-color: #121212;       
+            --card-bg: #1e1e1e;        
+            --text-color: #e0e0e0;     
+            --accent-gold: #FFD700;    
+            --accent-purple: #7B1FA2;  
+            --light-text: #A0A0A0;     
+            --input-bg: #2c2c2c;
+            --input-border: #444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+
+        a { text-decoration: none; transition: 0.3s; color: var(--text-color); }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* --- 2. NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--bg-color);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+        .logo strong { color: var(--accent-gold); }
+        .logo span { color: var(--accent-purple); }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--light-text); font-weight: 500; font-size: 0.95rem; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-gold); }
+
+        .nav-right { display: flex; gap: 20px; align-items: center; }
+        .btn-register {
+            background: var(--accent-gold); color: #000;
+            padding: 8px 20px; border-radius: 20px;
+            font-weight: 600; font-size: 0.9rem;
+        }
+        .btn-register:hover { background: #ffed4a; }
+
+        /* --- 3. BOOKING SECTION --- */
+        .booking-section { padding: 4rem 1rem; flex: 1; }
+        
+        .booking-header { text-align: center; margin-bottom: 3rem; }
+        .booking-header h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .booking-header h1 span { color: var(--accent-gold); }
+        .booking-header p { color: var(--light-text); }
+
+        /* Form Card */
+        .booking-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; color: var(--accent-gold); font-size: 0.9rem; font-weight: 600; }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        /* Checkboxes */
+        .checkbox-group { 
+            display: flex; align-items: center; gap: 10px; margin-bottom: 10px; 
+            padding: 10px; background: #252525; border-radius: 8px;
+        }
+        .checkbox-group input { width: auto; margin: 0; cursor: pointer; }
+        .checkbox-group label { margin: 0; color: #fff; cursor: pointer; }
+
+        /* Price Display */
+        .total-display {
+            background: #000;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+            border: 1px solid var(--accent-purple);
+        }
+        .total-label { color: var(--light-text); font-size: 0.9rem; display: block; margin-bottom: 5px; }
+        .total-price { font-size: 2rem; font-weight: 800; color: var(--accent-gold); }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-gold);
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button[type="submit"]:hover { background: #ffed4a; transform: translateY(-2px); }
+
+        /* Confirmation Box */
+        #quote-result {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4caf50;
+            border-radius: 8px;
+            text-align: center;
+        }
+        #quote-result h3 { color: #4caf50; margin-bottom: 10px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .booking-header h1 { font-size: 2rem; }
+            .booking-card { padding: 1.5rem; }
+            nav { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><strong>🦇</strong> The Bat Cave <span>Cafe</span></div>
+        
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="booking.html" class="active">Book Room</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <a href="booking.html" class="btn-register">Register <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </nav>
+
+    <main class="booking-section">
+        <div class="container">
+            <header class="booking-header">
+                <h1>Reserve Your <br><span>Study Space</span></h1>
+                <p>Rates start at ₱50/hr. Includes high-speed WiFi.</p>
+            </header>
+
+            <div class="booking-card">
+                <form id="booking-form" onsubmit="submitBooking(event)">
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="name" required placeholder="Juan Dela Cruz">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> Student ID</label>
+                        <input type="text" id="studentId" required placeholder="XX-XXXXX">
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar"></i> Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> Start Time</label>
+                            <input type="time" id="time" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-hourglass-half"></i> Duration (Hours)</label>
+                        <input type="number" id="duration" min="1" max="12" value="1" 
+                               onchange="updateEstimate()" onkeyup="updateEstimate()">
+                        <small style="color: #777; font-size: 0.8rem; margin-top: 5px; display:block;">
+                            *Minimum fee of ₱75 applies if booking is less than 2 hours.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Equipment Add-ons (₱150/hr each)</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="projector" onchange="updateEstimate()"> 
+                            <label for="projector">HD Projector</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="speaker" onchange="updateEstimate()"> 
+                            <label for="speaker">Speaker & Mic</label>
+                        </div>
+                    </div>
+
+                    <div class="total-display">
+                        <span class="total-label">ESTIMATED TOTAL</span>
+                        <span class="total-price" id="live-total">PHP 75.00</span>
+                    </div>
+
+                    <button type="submit">Confirm Reservation <i class="fas fa-check-circle"></i></button>
+                </form>
+
+                <div id="quote-result"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: #777; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05);">
+        &copy; 2023 The Bat Cave Cafe. Located at Malvar, Batangas State University Area.
+    </footer>
+
+    <script>
+        // --- Constants ---
+        const RATES = {
+            base: 50,     // per hour
+            minFee: 75,   // minimum fee if < 2 hours
+            projFee: 150, // per hour
+            spkrFee: 150  // per hour
+        };
+
+        // --- Calculation Logic ---
+        function calculateTotal() {
+            const hours = parseFloat(document.getElementById('duration').value) || 0;
+            const hasProjector = document.getElementById('projector').checked;
+            const hasSpeaker = document.getElementById('speaker').checked;
+            
+            let roomCost = 0;
+            let equipCost = 0;
+
+            // Rule: Minimum fee of 75 if less than 2 hours
+            if (hours < 2) {
+                roomCost = RATES.minFee;
+            } else {
+                roomCost = hours * RATES.base;
+            }
+
+            // Equipment costs depend on hours
+            if (hasProjector) equipCost += (RATES.projFee * hours);
+            if (hasSpeaker) equipCost += (RATES.spkrFee * hours);
+
+            const total = roomCost + equipCost;
+            return total;
+        }
+
+        // --- Update Display ---
+        function updateEstimate() {
+            const total = calculateTotal();
+            document.getElementById('live-total').innerText = `PHP ${total.toFixed(2)}`;
+        }
+
+        // --- Handle Submission ---
+        function submitBooking(event) {
+            event.preventDefault(); // Stop page reload
+            
+            // Get Values
+            const name = document.getElementById('name').value;
+            const studentId = document.getElementById('studentId').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const hours = document.getElementById('duration').value;
+            const total = calculateTotal();
+
+            // Basic Validation
+            if(!name || !studentId || !date || !time) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            // Create Object
+            const booking = {
+                id: Date.now(),
+                name,
+                studentId,
+                date,
+                time,
+                hours,
+                total
+            };
+
+            // Save to Browser Memory (LocalStorage)
+            // This allows the Admin page to see it!
+            let bookings = JSON.parse(localStorage.getItem('batCaveBookings')) || [];
+            bookings.push(booking);
+            localStorage.setItem('batCaveBookings', JSON.stringify(bookings));
+
+            // Show Success Message
+            const resultDiv = document.getElementById('quote-result');
+            const form = document.getElementById('booking-form');
+            
+            form.style.display = 'none'; // Hide form
+            resultDiv.style.display = 'block'; // Show message
+            
+            resultDiv.innerHTML = `
+                <h3><i class="fas fa-check-circle"></i> Reservation Confirmed!</h3>
+                <p>Thank you, <strong>${name}</strong>.</p>
+                <p>Please present ID <strong>${studentId}</strong> upon arrival.</p>
+                <br>
+                <p style="font-size:1.2rem;">Total To Pay: <strong style="color:#FFD700;">PHP ${total.toFixed(2)}</strong></p>
+                <button onclick="location.reload()" style="margin-top:15px; padding:10px; font-size:0.9rem;">Book Another</button>
+            `;
+        }
+    </script>
+</body>
+</html>
