@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Malvar Bat Cave Cafe</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style type="text/css">
+        body {
+            background-color: #0f172a; /* slate-900 */
+            color: #e2e8f0; /* slate-300 */
+        }
+        h1 {
+            font-size: 3rem; /* 48px */
+            line-height: 1;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 2.25rem; /* 36px */
+            line-height: 2.5rem;
+            font-weight: 700;
+        }
+        h3 {
+            font-size: 1.5rem; /* 24px */
+            line-height: 2rem;
+            font-weight: 700;
+        }
+        
+        /* Hide all page content by default */
+        .page-section {
+            display: none;
+        }
+        /* Show the active page */
+        .page-section.active {
+            display: block;
+        }
+        
+        /* Custom styling for booking form inputs */
+        input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="time"], input[type="number"] {
+            height: 2.5rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid var(--tw-border-color);
+            --tw-border-opacity: 1;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.8) }
+        .checkbox-container {
+            display: inline-flex;
+            align-items: center;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #475569; /* slate-600 */
+            cursor: pointer;
+            transition: all 150ms;
+        }
+        .checkbox-container.checked {
+            background-color: #a78bfa; /* violet-400 */
+            border-color: #a78bfa;
+        }
+        .checkbox-indicator {
+            display: none;
+            color: #0f172a; /* slate-900 */
+        }
+        .checkbox-container.checked .checkbox-indicator {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-300">
+
+    <!-- === 1. HEADER COMPONENT === -->
+    <header id="main-header" class="bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          
+          <!-- Logo/Home Button -->
+          <a href="#" class="nav-link hover:opacity-80 transition-opacity" data-page="home" aria-label="Navigate to Home">
+            <!-- Logo SVG -->
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-violet-500"
+                >
+                  <path
+                    d="M24 18C24 18 18 14 12 16C6 18 4 24 8 26C12 28 16 24 16 24C16 24 14 30 16 32C18 34 22 32 24 28C26 32 30 34 32 32C34 30 32 24 32 24C32 24 36 28 40 26C44 24 42 18 36 16C30 14 24 18 24 18Z"
+                    fill="currentColor"
+                  />
+                  <circle cx="24" cy="32" r="6" fill="#8b5cf6" />
+                  <rect x="22" y="37" width="4" height="2" rx="1" fill="#8b5cf6" />
+                  <path
+                    d="M20 30C20 30 20 28 21 28C22 28 22 29 23 29"
+                    stroke="#e2e8f0"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    fill="none"
+                  />
+                  <path
+                    d="M26 30C26 30 26 28 27 28C28 28 28 29 29 29"
+                    stroke="#e2e8f0"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-violet-500 text-sm font-semibold">The Malvar</span>
+                <span class="text-slate-100 -mt-1 text-lg font-bold">Bat Cave Cafe</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Desktop Navigation -->
+          <nav id="desktop-nav" class="hidden md:flex items-center gap-8">
+            <a href="#" class="nav-link transition-colors text-slate-300 hover:text-violet-400" data-page="home">Home</a>
+            <a href="#" class="nav-link transition-colors text-slate-300 hover:text-violet-400" data-page="menu">Menu</a>
+            <a href="#" class="nav-link transition-colors text-slate-300 hover:text-violet-400" data-page="booking">Book a Room</a>
+          </nav>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-toggle"
+            class="md:hidden text-slate-300 hover:text-violet-400"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+          >
+            <!-- Menu Icon (default) -->
+            <svg id="menu-icon" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+            <!-- X Icon (hidden by default) -->
+            <svg id="x-icon" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav 
+          id="mobile-nav" 
+          class="hidden mt-4 pb-4 flex flex-col gap-4 border-t border-slate-800 pt-4"
+        >
+          <a href="#" class="nav-link text-left transition-colors text-slate-300 hover:text-violet-400" data-page="home">Home</a>
+          <a href="#" class="nav-link text-left transition-colors text-slate-300 hover:text-violet-400" data-page="menu">Menu</a>
+          <a href="#" class="nav-link text-left transition-colors text-slate-300 hover:text-violet-400" data-page="booking">Book a Room</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- === 2. MAIN CONTENT (Pages will be swapped here) === -->
+    <main class="flex-1">
+    
+        <!-- === HOMEPAGE COMPONENT === -->
+        <section id="page-home" data-page-content class="page-section active">
+            <div class="min-h-screen">
+              <!-- Hero Section -->
+              <section class="relative bg-gradient-to-b from-black to-slate-900 py-20 px-4">
+                <div class="container mx-auto">
+                  <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-slate-100 mb-6">
+                      Welcome to The Malvar Bat Cave Cafe
+                    </h1>
+                    <p class="text-xl text-slate-300 mb-8">
+                      The premier late-night study, social, and coffee spot near Batangas
+                      State University Malvar Campus. Where night owls gather to study,
+                      collaborate, and fuel their ambitions.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                      <a
+                        href="#"
+                        data-page="menu"
+                        class="bg-violet-600 hover:bg-violet-700 text-white px-8 py-3 rounded-lg transition-colors"
+                      >
+                        View Menu
+                      </a>
+                      <a
+                        href="#"
+                        data-page="booking"
+                        class="bg-violet-900 hover:bg-violet-800 text-white px-8 py-3 rounded-lg border border-violet-700 transition-colors"
+                      >
+                        Book a Room
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Mission Statement -->
+              <section class="py-16 px-4 bg-slate-900/50">
+                <div class="container mx-auto max-w-3xl text-center">
+                  <h2 class="text-slate-100 mb-6">Our Mission</h2>
+                  <p class="text-lg text-slate-300">
+                    To provide a welcoming, focused environment where BatStateU students
+                    can study late into the night, collaborate on projects, and enjoy
+                    quality coffee and snacks. We're more than a cafe - we're your
+                    academic sanctuary.
+                  </p>
+                </div>
+              </section>
+
+              <!-- Features Grid -->
+              <section class="py-16 px-4">
+                <div class="container mx-auto">
+                  <h2 class="text-center text-slate-100 mb-12">Why Choose Bat Cave?</h2>
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Feature 1: Late Night Hours -->
+                    <div
+                      class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-violet-500 transition-colors"
+                    >
+                      <div class="text-violet-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                        </svg>
+                      </div>
+                      <h3 class="text-slate-100 mb-2">Late Night Hours</h3>
+                      <p class="text-slate-400">
+                        Open when you need us most - perfect for night owls and exam
+                        cramming
+                      </p>
+                    </div>
+                    
+                    <!-- Feature 2: Premium Coffee -->
+                    <div
+                      class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-violet-500 transition-colors"
+                    >
+                      <div class="text-violet-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M17 5.1a2 2 0 0 1 2 1.9v2.2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7a2 2 0 0 1 2-1.9Z" />
+                          <path d="M11 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4" />
+                          <path d="M6 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4" />
+                          <path d="M10 5V2" /><path d="M14 5V2" />
+                        </svg>
+                      </div>
+                      <h3 class="text-slate-100 mb-2">Premium Coffee</h3>
+                      <p class="text-slate-400">
+                        Specialty brews and signature drinks to fuel your study sessions
+                      </p>
+                    </div>
+                    
+                    <!-- Feature 3: Private Rooms -->
+                    <div
+                      class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-violet-500 transition-colors"
+                    >
+                      <div class="text-violet-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                          <circle cx="9" cy="7" r="4" />
+                          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                      </div>
+                      <h3 class="text-slate-100 mb-2">Private Rooms</h3>
+                      <p class="text-slate-400">
+                        Bookable study rooms with projectors and audio equipment available
+                      </p>
+                    </div>
+                    
+                    <!-- Feature 4: Study-Friendly -->
+                    <div
+                      class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-violet-500 transition-colors"
+                    >
+                      <div class="text-violet-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M5 12.55a11 11 0 0 1 14 0" />
+                          <path d="M2 8.82a19 19 0 0 1 20 0" />
+                          <path d="M8 16.29a5 5 0 0 1 8 0" />
+                          <line x1="12" y1="20" x2="12.01" y2="20" />
+                        </svg>
+                      </div>
+                      <h3 class="text-slate-100 mb-2">Study-Friendly</h3>
+                      <p class="text-slate-400">
+                        Fast WiFi, comfortable seating, and the perfect atmosphere to
+                        focus
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+              </section>
+
+              <!-- Featured Items -->
+              <section class="py-16 px-4 bg-slate-900/50">
+                <div class="container mx-auto">
+                  <h2 class="text-center text-slate-100 mb-12">
+                    Featured Menu Items
+                  </h2>
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+                  >
+                    
+                    <!-- Item 1: The Bat Brew -->
+                    <div
+                      class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-colors"
+                    >
+                      <div class="h-48 bg-slate-700">
+                        <img
+                          src="https://images.unsplash.com/photo-1645445644664-8f44112f334c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlc3ByZXNzbyUyMGNvZmZlZSUyMGN1cHxlbnwxfHx8fDE3NjMzNzEzNDV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                          alt="The Bat Brew"
+                          class="w-full h-full object-cover fallback-image"
+                        />
+                      </div>
+                      <div class="p-6">
+                        <h3 class="text-slate-100 mb-2">The Bat Brew</h3>
+                        <p class="text-slate-400 mb-4">Our signature coffee blend</p>
+                        <p class="text-violet-500">₱120</p>
+                      </div>
+                    </div>
+                    
+                    <!-- Item 2: Midnight Mocha -->
+                    <div
+                      class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-colors"
+                    >
+                      <div class="h-48 bg-slate-700">
+                        <img
+                          src="https://images.unsplash.com/photo-1645445644664-8f44112f334c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlc3ByZXNzbyUyMGNvZmZlZSUyMGN1cHxlbnwxfHx8fDE3NjMzNzEzNDV8MA&ixid=rb-4.1.0&q=80&w=1080"
+                          alt="Midnight Mocha"
+                          class="w-full h-full object-cover fallback-image"
+                        />
+                      </div>
+                      <div class="p-6">
+                        <h3 class="text-slate-100 mb-2">Midnight Mocha</h3>
+                        <p class="text-slate-400 mb-4">Rich chocolate meets espresso</p>
+                        <p class="text-violet-500">₱135</p>
+                      </div>
+                    </div>
+                    
+                    <!-- Item 3: Nachos Grande -->
+                    <div
+                      class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-colors"
+                    >
+                      <div class="h-48 bg-slate-700">
+                        <img
+                          src="https://images.unsplash.com/photo-1645445644664-8f44112f334c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlc3ByZXNzbyUyMGNvZmZlZSUyMGN1cHxlbnwxfHx8fDE3NjMzNzEzNDV8MA&ixid=rb-4.1.0&q=80&w=1080"
+                          alt="Nachos Grande"
+                          class="w-full h-full object-cover fallback-image"
+                        />
+                      </div>
+                      <div class="p-6">
+                        <h3 class="text-slate-100 mb-2">Nachos Grande</h3>
+                        <p class="text-slate-400 mb-4">
+                          Perfect for sharing while studying
+                        </p>
+                        <p class="text-violet-500">₱180</p>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="text-center mt-8">
+                    <a
+                      href="#"
+                      data-page="menu"
+                      class="text-violet-500 hover:text-violet-400 transition-colors"
+                    >
+                      View Full Menu →
+                    </a>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Call to Action -->
+              <section class="py-16 px-4 bg-gradient-to-b from-black to-slate-900">
+                <div class="container mx-auto max-w-3xl text-center">
+                  <h2 class="text-slate-100 mb-6">Ready to Book Your Study Space?</h2>
+                  <p class="text-lg text-slate-300 mb-8">
+                    Reserve a private room with projector and audio equipment. Perfect
+                    for group projects, presentations, or focused study sessions.
+                  </p>
+                  <a
+                    href="#"
+                    data-page="booking"
+                    class="bg-violet-600 hover:bg-violet-700 text-white px-8 py-3 rounded-lg transition-colors"
+                  >
+                    Book Now
+                  </a>
+                </div>
+              </section>
+            </div>
+        </section>
+        
+        <!-- === MENUPAGE COMPONENT === -->
+        <section id="page-menu" data-page-content class="page-section">
+            <div class="min-h-screen py-12 px-4">
+              <div class="container mx-auto max-w-6xl">
+                <!-- Header -->
+                <div class="text-center mb-16">
+                  <h1 class="text-slate-100 mb-4">Our Menu</h1>
+                  <p class="text-lg text-slate-300">
+                    Fuel your study sessions with our premium coffee and delicious bites
+                  </p>
+                </div>
+
+                <!-- Specialty Coffee Section -->
+                <div class="mb-16">
+                  <div class="flex items-center gap-3 mb-6">
+                    <div class="text-violet-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5.1a2 2 0 0 1 2 1.9v2.2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7a2 2 0 0 1 2-1.9Z"/><path d="M11 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M6 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M10 5V2"/><path d="M14 5V2"/></svg>
+                    </div>
+                    <h2 class="text-slate-100">Specialty Coffee</h2>
+                  </div>
+                  
+                  <div class="overflow-x-auto pb-4 -mx-4 px-4">
+                    <div class="flex gap-6 w-max">
+                      
+                      <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                        <div class="h-48 bg-slate-700 overflow-hidden">
+                          <img
+                            src="https://images.unsplash.com/photo-1603828778059-6e52a251fd2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcGVjaWFsdHklMjBjb2ZmZWUlMjBsYXR0ZXxlbnwxfHx8fDE3NjMzOTAzMjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                            alt="The Bat Brew (Signature)"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                          />
+                        </div>
+                        <div class="p-4">
+                          <h3 class="text-slate-100 mb-1">The Bat Brew (Signature)</h3>
+                          <p class="text-sm text-slate-400 mb-3">Our signature dark roast blend</p>
+                          <span class="text-violet-500">₱120</span>
+                        </div>
+                      </div>
+
+                      <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                        <div class="h-48 bg-slate-700 overflow-hidden">
+                          <img
+                            src="https://images.unsplash.com/photo-1619286310410-a95de97b0aec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaG9jb2xhdGUlMjBtb2NoYSUyMGNvZmZlZXxlbnwxfHx8fDE3NjMzOTAzMjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                            alt="Midnight Mocha"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                          />
+                        </div>
+                        <div class="p-4">
+                          <h3 class="text-slate-100 mb-1">Midnight Mocha</h3>
+                          <p class="text-sm text-slate-400 mb-3">Rich chocolate meets espresso</p>
+                          <span class="text-violet-500">₱135</span>
+                        </div>
+                      </div>
+                      
+                      <!-- Other coffee items... -->
+                      <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                        <div class="h-48 bg-slate-700 overflow-hidden">
+                          <img
+                            src="https://images.unsplash.com/photo-1669872484166-e11b9638b50e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbWVyaWNhbm8lMjBjb2ZmZWV8ZW58MXx8fHwxNzYzMzU5NjE5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                            alt="Dark Roast Americano"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                          />
+                        </div>
+                        <div class="p-4">
+                          <h3 class="text-slate-100 mb-1">Dark Roast Americano</h3>
+                          <p class="text-sm text-slate-400 mb-3">Bold and smooth</p>
+                          <span class="text-violet-500">₱95</span>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <p class="text-sm text-slate-500 text-center mt-4">
+                    ← Scroll to see more items →
+                  </p>
+                </div>
+
+                <!-- Pastries Section -->
+                <div class="mb-16">
+                  <div class="flex items-center gap-3 mb-6">
+                    <div class="text-violet-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 12 1.63 1.63a6.45 6.45 0 0 0 9.12 0l1.63-1.63c4.25-.09 7.74 3.42 7.74 7.74V22H2v-2.26c0-4.32 3.49-7.83 7.74-7.74Z"/><path d="M14.5 12.5a2.5 2.5 0 0 1-5 0"/><path d="M12 2v10"/></svg>
+                    </div>
+                    <h2 class="text-slate-100">Pastries & Baked Goods</h2>
+                  </div>
+                  <div class="overflow-x-auto pb-4 -mx-4 px-4">
+                    <div class="flex gap-6 w-max">
+                      <!-- Pastry items... -->
+                       <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                        <div class="h-48 bg-slate-700 overflow-hidden">
+                          <img
+                            src="https://images.unsplash.com/photo-1566154492603-00961cd93b3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWQlMjB2ZWx2ZXQlMjBtdWZmaW58ZW58MXx8fHwxNzYzMzkwMzI0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                            alt="Red Velvet Muffin"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                          />
+                        </div>
+                        <div class="p-4">
+                          <h3 class="text-slate-100 mb-1">Red Velvet Muffin</h3>
+                          <p class="text-sm text-slate-400 mb-3">Soft and decadent</p>
+                          <span class="text-violet-500">₱65</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                   <p class="text-sm text-slate-500 text-center mt-4">
+                    ← Scroll to see more items →
+                  </p>
+                </div>
+
+                <!-- Snacks Section -->
+                <div class="mb-16">
+                  <div class="flex items-center gap-3 mb-6">
+                    <div class="text-violet-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4l-3 8h12l-3-8h4c1.1 0 2-.9 2-2V2H3Z"/><line x1="7" y1="2" x2="7" y2="2"/><line x1="17" y1="2" x2="17" y2="2"/></svg>
+                    </div>
+                    <h2 class="text-slate-100">Snacks & Meals</h2>
+                  </div>
+                   <div class="overflow-x-auto pb-4 -mx-4 px-4">
+                    <div class="flex gap-6 w-max">
+                      <!-- Snack items... -->
+                       <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                        <div class="h-48 bg-slate-700 overflow-hidden">
+                          <img
+                            src="https://images.unsplash.com/photo-1669624272709-c5b91f66b1b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuYWNob3MlMjBjaGVlc2V8ZW58MXx8fHwxNzYzMzAwODEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                            alt="Nachos Grande"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                          />
+                        </div>
+                        <div class="p-4">
+                          <h3 class="text-slate-100 mb-1">Nachos Grande</h3>
+                          <p class="text-sm text-slate-400 mb-3">Perfect for sharing</p>
+                          <span class="text-violet-500">₱180</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                   <p class="text-sm text-slate-500 text-center mt-4">
+                    ← Scroll to see more items →
+                  </p>
+                </div>
+                
+                <hr class="border-slate-800 my-16" />
+
+                <!-- Menu Table -->
+                <div class="mt-16 mb-12">
+                  <h2 class="text-slate-100 mb-6 text-center">Complete Price List</h2>
+                  <div class="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
+                    <table class="w-full">
+                      <thead>
+                        <tr class="bg-black border-b border-slate-700">
+                          <th class="text-left py-4 px-6 text-violet-500">Category</th>
+                          <th class="text-left py-4 px-6 text-violet-500">Item Name</th>
+                          <th class="text-right py-4 px-6 text-violet-500">Price (PHP)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Specialty Coffee -->
+                        <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                          <td class="py-4 px-6 text-slate-300">
+                            <div class="flex items-center gap-2">
+                              <svg class="text-violet-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5.1a2 2 0 0 1 2 1.9v2.2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7a2 2 0 0 1 2-1.9Z"/><path d="M11 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M6 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M10 5V2"/><path d="M14 5V2"/></svg>
+                              <span>Specialty Coffee</span>
+                            </div>
+                          </td>
+                          <td class="py-4 px-6 text-slate-200">The Bat Brew (Signature)</td>
+                          <td class="py-4 px-6 text-right text-slate-200">₱120</td>
+                        </tr>
+                        <!-- ... more coffee items ... -->
+                         <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                          <td class="py-4 px-6 text-slate-300"></td>
+                          <td class="py-4 px-6 text-slate-200">Midnight Mocha</td>
+                          <td class="py-4 px-6 text-right text-slate-200">₱135</td>
+                        </tr>
+                        
+                        <!-- Pastries -->
+                        <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                          <td class="py-4 px-6 text-slate-300">
+                            <div class="flex items-center gap-2">
+                              <svg class="text-violet-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 12 1.63 1.63a6.45 6.45 0 0 0 9.12 0l1.63-1.63c4.25-.09 7.74 3.42 7.74 7.74V22H2v-2.26c0-4.32 3.49-7.83 7.74-7.74Z"/><path d="M14.5 12.5a2.5 2.5 0 0 1-5 0"/><path d="M12 2v10"/></svg>
+                              <span>Pastries</span>
+                            </div>
+                          </td>
+                          <td class="py-4 px-6 text-slate-200">Red Velvet Muffin</td>
+                          <td class="py-4 px-6 text-right text-slate-200">₱65</td>
+                        </tr>
+                         <!-- ... more pastry items ... -->
+                         
+                        <!-- Snacks -->
+                        <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                          <td class="py-4 px-6 text-slate-300">
+                            <div class="flex items-center gap-2">
+                              <svg class="text-violet-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4l-3 8h12l-3-8h4c1.1 0 2-.9 2-2V2H3Z"/><line x1="7" y1="2" x2="7" y2="2"/><line x1="17" y1="2" x2="17" y2="2"/></svg>
+                              <span>Snacks</span>
+                            </div>
+                          </td>
+                          <td class="py-4 px-6 text-slate-200">Nachos Grande</td>
+                          <td class="py-4 px-6 text-right text-slate-200">₱180</td>
+                        </tr>
+                         <!-- ... more snack items ... -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+        
+        <!-- === BOOKINGPAGE COMPONENT === -->
+        <section id="page-booking" data-page-content class="page-section">
+            <div class="min-h-screen py-12 px-4">
+              <div class="container mx-auto max-w-4xl">
+                <!-- Header -->
+                <div class="text-center mb-12">
+                  <h1 class="text-slate-100 mb-4">Book a Study Room</h1>
+                  <p class="text-lg text-slate-300">
+                    Reserve your private study space with optional equipment rental
+                  </p>
+                </div>
+
+                <!-- Booking Form -->
+                <form id="booking-form" class="space-y-8">
+                  
+                  <!-- Personal Information Section -->
+                  <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+                    <h2 class="text-slate-100 mb-6 flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-500"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                      Personal Information
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      
+                      <!-- Student ID -->
+                      <div>
+                        <label for="studentId" class="text-slate-300 block mb-1">Student ID *</label>
+                        <input
+                          id="studentId"
+                          name="studentId"
+                          type="text"
+                          placeholder="2021-12345"
+                          class="bg-slate-900 border-slate-600 text-slate-100 w-full"
+                        />
+                        <p class="error-message text-red-400 text-sm mt-1" id="error-studentId"></p>
+                      </div>
+
+                      <!-- Full Name -->
+                      <div>
+                        <label for="fullName" class="text-slate-300 block mb-1">Full Name *</label>
+                        <input
+                          id="fullName"
+                          name="fullName"
+                          type="text"
+                          placeholder="Juan Dela Cruz"
+                          class="bg-slate-900 border-slate-600 text-slate-100 w-full"
+                        />
+                        <p class="error-message text-red-400 text-sm mt-1" id="error-fullName"></p>
+                      </div>
+
+                      <!-- Email Address -->
+                      <div>
+                        <label for="email" class="text-slate-300 block mb-1">Email Address *</label>
+                        <input
+                          id="email"
+                          name="email"
+                          type="email"
+                          placeholder="student@batstate-u.edu.ph"
+                          class="bg-slate-900 border-slate-600 text-slate-100 w-full"
+                        />
+                        <p class="error-message text-red-400 text-sm mt-1" id="error-email"></p>
+                      </div>
+
+                      <!-- Phone Number -->
+                      <div>
+                        <label for="phone" class="text-slate-300 block mb-1">Phone Number *</label>
+                        <input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          placeholder="09123456789"
+                          class="bg-slate-900 border-slate-600 text-slate-100 w-full"
+                        />
+                        <p class="error-message text-red-400 text-sm mt-1" id="error-phone"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Booking Details Section -->
+                  <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+                    <h2 class="text-slate-100 mb-6 flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-500"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      Booking Details
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      
+                      <!-- Reservation Date -->
+                      <div>
+                        <label for="date" class="text-slate-300 block mb-1">Reservation Date *</label>
+                        <input
+                          id="date"
+                          name="date"
+                          type="date"
+                          class="bg-slate-900 border-slate-600 text-slate-100 w-full"
+                        />
+                        <p class="error-message text-red-400 text-sm mt-1" id="error-date"></p>
+                      </div>
+
+                      <!-- Start Time -->
+                      <div>
+                        <label for="startTime" class="text-slate-300 block mb-1">Start Time *</label>
+                        <div class="relative">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 mt-[2px]"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                          <input
+                            id="startTime"
+                            name="startTime"
+                            type="time"
+                            class="bg-slate-900 border-slate-600 text-slate-100 w-full pl-10"
+                          />
+                        </div>
+                        <p class="error-message text-red-400 text-sm mt-1" id="error-startTime"></p>
+                      </div>
+
+                      <!-- Number of Hours -->
+                      <div>
+                        <label for="hours" class="text-slate-300 block mb-1">Number of Hours *</label>
+                        <input
+                          id="hours"
+                          name="hours"
+                          type="number"
+                          min="1"
+                          placeholder="e.g., 3"
+                          class="bg-slate-900 border-slate-600 text-slate-100 w-full"
+                        />
+                        <p class="error-message text-red-400 text-sm mt-1" id="error-hours"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Equipment Rental Section -->
+                  <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+                    <h2 class="text-slate-100 mb-6 flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-500"><path d="M12 2a3 3 0 0 0-3 3v.3c-2 .5-4 2-4 5.7V22l4-1 4 1 4-1V11c0-3.7-2-5.2-4-5.7V5a3 3 0 0 0-3-3Z"/></svg>
+                      Equipment Rental (Optional)
+                    </h2>
+                    
+                    <div class="space-y-4">
+                      
+                      <!-- Projector Checkbox -->
+                      <div class="flex items-center space-x-3 p-4 bg-slate-900/50 rounded-lg border border-slate-600">
+                        <div id="checkbox-projector" class="checkbox-container">
+                            <svg class="checkbox-indicator w-full h-full p-[1px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <input type="hidden" id="projector" name="projector" value="false">
+                        <div class="flex-1">
+                          <label for="checkbox-projector" class="text-slate-200 cursor-pointer">Projector</label>
+                          <p class="text-sm text-slate-400">₱150.00 per hour</p>
+                        </div>
+                      </div>
+
+                      <!-- Speaker & Microphone Checkbox -->
+                      <div class="flex items-center space-x-3 p-4 bg-slate-900/50 rounded-lg border border-slate-600">
+                        <div id="checkbox-speakerMic" class="checkbox-container">
+                            <svg class="checkbox-indicator w-full h-full p-[1px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></polyline>
+                        </div>
+                        <input type="hidden" id="speakerMic" name="speakerMic" value="false">
+                        <div class="flex-1">
+                          <label for="checkbox-speakerMic" class="text-slate-200 cursor-pointer">Speaker & Microphone</label>
+                          <p class="text-sm text-slate-400">₱150.00 per hour</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Cost Calculation Display -->
+                  <div id="cost-breakdown" class="hidden bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-600 rounded-lg p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+                      <h3 class="text-slate-100">Estimated Cost Breakdown</h3>
+                    </div>
+                    
+                    <div class="space-y-3" id="cost-details">
+                      <!-- Content generated by JavaScript -->
+                    </div>
+
+                    <p class="text-sm text-slate-400 mt-4 bg-slate-800/50 p-3 rounded hidden" id="minimum-fee-note">
+                      Note: Minimum fee of ₱75.00 applies for bookings under 2 hours
+                    </p>
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div class="flex flex-col sm:flex-row gap-4">
+                    <button
+                      type="button"
+                      id="calculate-button"
+                      class="flex-1 bg-indigo-900 hover:bg-indigo-800 text-white py-3 rounded-lg border border-indigo-700 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+                      Calculate Cost
+                    </button>
+                    
+                    <button
+                      type="submit"
+                      id="submit-button"
+                      disabled
+                      class="flex-1 py-3 rounded-lg transition-colors flex items-center justify-center gap-2 bg-slate-700 text-slate-500 cursor-not-allowed"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                      Submit Reservation
+                    </button>
+                    
+                    <button
+                      type="button"
+                      id="reset-button"
+                      class="sm:w-auto bg-slate-700 hover:bg-slate-600 text-slate-300 py-3 px-6 rounded-lg transition-colors"
+                    >
+                      Reset Form
+                    </button>
+                  </div>
+
+                  <!-- Confirmation Message (Hidden by default) -->
+                  <div
+                    id="confirmation"
+                    class="hidden mt-8 bg-gradient-to-r from-green-900/20 to-emerald-900/20 border border-green-600 rounded-lg p-8 text-center"
+                  >
+                    <!-- Confirmation content generated by JavaScript -->
+                  </div>
+                </form>
+              </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- === 3. FOOTER COMPONENT === -->
+    <footer class="bg-slate-900 border-t border-slate-800 mt-auto">
+      <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Location -->
+          <div>
+            <div class="flex items-center gap-2 text-violet-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <h3>Location</h3>
+            </div>
+            <p class="text-slate-400">
+              Near Batangas State University
+              <br />
+              Malvar Campus
+              <br />
+              Malvar, Batangas
+            </p>
+          </div>
+
+          <!-- Hours -->
+          <div>
+            <div class="flex items-center gap-2 text-violet-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <h3>Hours</h3>
+            </div>
+            <p class="text-slate-400">
+              Open Late for Night Study Sessions
+              <br />
+              Perfect for students & groups
+              <br />
+              Room bookings available
+            </p>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <div class="flex items-center gap-2 text-violet-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5.1a2 2 0 0 1 2 1.9v2.2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7a2 2 0 0 1 2-1.9Z"/><path d="M11 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M6 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M10 5V2"/><path d="M14 5V2"/></svg>
+              <h3>Contact</h3>
+            </div>
+            <p class="text-slate-400">
+              Owner: Nina Sy
+              <br />
+              Follow us on social media
+              <br />
+              for updates & events
+            </p>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-800 mt-8 pt-8 text-center text-slate-500">
+          <p>© 2024 The Malvar Bat Cave Cafe. Your premier late-night study spot.</p>
+        </div>
+      </div>
+    </footer>
+
+    
+    <!-- === 4. GLOBAL JAVASCRIPT === -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Global State ---
+            let currentPage = 'home';
+            const allPages = document.querySelectorAll('[data-page-content]');
+            const allNavLinks = document.querySelectorAll('[data-page]');
+            const headerLinks = document.querySelectorAll('.nav-link');
+
+            // --- 1. Main Navigation Logic (from App.jsx) ---
+            
+            function handleNavigate(pageId) {
+                if (!pageId || pageId === currentPage) return;
+
+                currentPage = pageId;
+
+                // Hide all pages
+                allPages.forEach(p => p.classList.remove('active'));
+                
+                // Show the target page
+                const newPage = document.getElementById(`page-${pageId}`);
+                if (newPage) {
+                    newPage.classList.add('active');
+                }
+
+                // Scroll to top (from useEffect)
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                
+                // Update active link styling in header
+                updateActiveNav(pageId);
+                
+                // Close mobile menu if it's open
+                closeMobileMenu();
+            }
+
+            function updateActiveNav(pageId) {
+                headerLinks.forEach(link => {
+                    const linkPageId = link.getAttribute('data-page');
+                    const isActive = linkPageId === pageId;
+                    
+                    link.classList.toggle('text-violet-500', isActive);
+                    link.classList.toggle('font-bold', isActive);
+                    link.classList.toggle('text-slate-300', !isActive);
+                    link.classList.toggle('hover:text-violet-400', !isActive);
+                });
+            }
+
+            // Attach listeners to all nav links (in header, footer, or pages)
+            allNavLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); 
+                    const pageId = link.getAttribute('data-page');
+                    handleNavigate(pageId);
+                });
+            });
+
+            // --- 2. Header Logic (Mobile Menu) ---
+            
+            const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            const menuIcon = document.getElementById('menu-icon');
+            const xIcon = document.getElementById('x-icon');
+
+            function toggleMobileMenu() {
+                const isMenuOpen = mobileNav.classList.toggle('hidden');
+                mobileToggle.setAttribute('aria-expanded', !isMenuOpen);
+                menuIcon.classList.toggle('hidden', !isMenuOpen);
+                xIcon.classList.toggle('hidden', isMenuOpen);
+            }
+            
+            function closeMobileMenu() {
+                 mobileNav.classList.add('hidden');
+                 mobileToggle.setAttribute('aria-expanded', 'false');
+                 menuIcon.classList.remove('hidden');
+                 xIcon.classList.add('hidden');
+            }
+
+            mobileToggle.addEventListener('click', toggleMobileMenu);
+
+            // --- 3. Image Fallback Logic (for HomePage, MenuPage) ---
+            
+            const ERROR_IMG_SRC = 'https://placehold.co/400x200/ef4444/ffffff?text=Image+Failed';
+            
+            function setupImageFallback(imgElement) {
+                imgElement.onerror = function() {
+                    imgElement.onerror = null; // Prevent infinite loop
+                    imgElement.src = ERROR_IMG_SRC;
+                    imgElement.classList.add('object-contain'); // Adjust placeholder fit
+                };
+            }
+            
+            document.querySelectorAll('img.fallback-image').forEach(setupImageFallback);
+
+            // --- 4. Booking Page Logic (from booking.html) ---
+            
+            const bookingForm = document.getElementById('booking-form');
+            if (bookingForm) {
+                const submitButton = document.getElementById('submit-button');
+                const calculateButton = document.getElementById('calculate-button');
+                const resetButton = document.getElementById('reset-button');
+                const costBreakdown = document.getElementById('cost-breakdown');
+                const costDetails = document.getElementById('cost-details');
+                const confirmationDiv = document.getElementById('confirmation');
+                const minFeeNote = document.getElementById('minimum-fee-note');
+                
+                let estimatedCost = null;
+
+                function getFormData() {
+                    return {
+                        studentId: bookingForm.studentId.value,
+                        fullName: bookingForm.fullName.value,
+                        email: bookingForm.email.value,
+                        phone: bookingForm.phone.value,
+                        date: bookingForm.date.value,
+                        startTime: bookingForm.startTime.value,
+                        hours: parseInt(bookingForm.hours.value) || 0,
+                        projector: bookingForm.projector.value === 'true',
+                        speakerMic: bookingForm.speakerMic.value === 'true',
+                    };
+                }
+
+                function toggleError(fieldId, message = '') {
+                    const input = document.getElementById(fieldId);
+                    const errorMsg = document.getElementById(`error-${fieldId}`);
+                    
+                    if (message) {
+                        input.classList.add('border-red-500');
+                        input.classList.remove('border-slate-600');
+                        if (errorMsg) errorMsg.textContent = message;
+                    } else {
+                        input.classList.remove('border-red-500');
+                        input.classList.add('border-slate-600');
+                        if (errorMsg) errorMsg.textContent = '';
+                    }
+                }
+
+                function validateForm() {
+                    const data = getFormData();
+                    let isValid = true;
+                    ['studentId', 'fullName', 'email', 'phone', 'date', 'startTime', 'hours'].forEach(id => toggleError(id, ''));
+
+                    if (!data.studentId) {
+                        toggleError('studentId', 'Student ID is required');
+                        isValid = false;
+                    } else if (!/^\d{4}-\d{5}$/.test(data.studentId)) {
+                        toggleError('studentId', 'Format: YYYY-XXXXX (e.g., 2021-12345)');
+                        isValid = false;
+                    }
+                    if (!data.email) {
+                        toggleError('email', 'Email is required');
+                        isValid = false;
+                    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+                        toggleError('email', 'Please enter a valid email address');
+                        isValid = false;
+                    }
+                    if (!data.phone) {
+                        toggleError('phone', 'Phone number is required');
+                        isValid = false;
+                    } else if (!/^(09|\+639)\d{9}$/.test(data.phone.replace(/[\s-]/g, ""))) {
+                        toggleError('phone', 'Valid Philippine phone number (e.g., 09123456789)');
+                        isValid = false;
+                    }
+                    if (!data.fullName) { toggleError('fullName', 'Full name is required'); isValid = false; }
+                    if (!data.date) { toggleError('date', 'Reservation date is required'); isValid = false; }
+                    if (!data.startTime) { toggleError('startTime', 'Start time is required'); isValid = false; }
+                    if (data.hours <= 0) { toggleError('hours', 'Please enter a valid number of hours'); isValid = false; }
+                    
+                    return isValid;
+                }
+
+                function calculateCost() {
+                    const data = getFormData();
+                    const hours = data.hours;
+                    
+                    let roomFee = hours * 50;
+                    if (hours < 2 && hours > 0) {
+                        roomFee = 75;
+                        minFeeNote.classList.remove('hidden');
+                    } else {
+                        minFeeNote.classList.add('hidden');
+                    }
+                    const projectorFee = data.projector ? hours * 150 : 0;
+                    const speakerMicFee = data.speakerMic ? hours * 150 : 0;
+                    const total = roomFee + projectorFee + speakerMicFee;
+                    
+                    let html = `<div class="flex justify-between text-slate-300"><span>Room Fee (${hours} hour${hours !== 1 ? 's' : ''}):</span><span>₱${roomFee.toFixed(2)}</span></div>`;
+                    if (data.projector) html += `<div class="flex justify-between text-slate-300"><span>Projector (${hours} hour${hours !== 1 ? 's' : ''}):</span><span>₱${projectorFee.toFixed(2)}</span></div>`;
+                    if (data.speakerMic) html += `<div class="flex justify-between text-slate-300"><span>Speaker & Mic (${hours} hour${hours !== 1 ? 's' : ''}):</span><span>₱${speakerMicFee.toFixed(2)}</span></div>`;
+                    html += `<div class="border-t border-amber-600/30 pt-3 flex justify-between text-amber-500 font-bold"><span>Total Estimated Cost:</span><span>₱${total.toFixed(2)}</span></div>`;
+                    
+                    costDetails.innerHTML = html;
+                    costBreakdown.classList.remove('hidden');
+                    return total;
+                }
+
+                function updateSubmitButton(cost) {
+                    if (cost !== null) {
+                        submitButton.disabled = false;
+                        submitButton.classList.remove('bg-slate-700', 'text-slate-500', 'cursor-not-allowed');
+                        submitButton.classList.add('bg-amber-600', 'hover:bg-amber-700', 'text-white');
+                    } else {
+                        submitButton.disabled = true;
+                        submitButton.classList.add('bg-slate-700', 'text-slate-500', 'cursor-not-allowed');
+                        submitButton.classList.remove('bg-amber-600', 'hover:bg-amber-700', 'text-white');
+                    }
+                }
+
+                function handleCalculate() {
+                    if (validateForm()) {
+                        estimatedCost = calculateCost();
+                        updateSubmitButton(estimatedCost);
+                        confirmationDiv.classList.add('hidden');
+                    } else {
+                        estimatedCost = null;
+                        updateSubmitButton(estimatedCost);
+                    }
+                }
+
+                function handleSubmit(e) {
+                    e.preventDefault();
+                    if (!validateForm()) return;
+                    if (estimatedCost === null) {
+                        handleCalculate();
+                        return;
+                    }
+                    
+                    const data = getFormData();
+                    const formattedDate = new Date(data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                    
+                    confirmationDiv.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mx-auto mb-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <h3 class="text-slate-100 mb-4">Reservation Request Confirmed!</h3>
+                        <div class="text-slate-300 space-y-2 max-w-2xl mx-auto">
+                            <p>Thank you, <strong>${data.fullName}</strong>! Your request is submitted.</p>
+                            <div class="bg-slate-800/50 rounded-lg p-4 mt-4">
+                                <p><strong>Booking Details:</strong></p>
+                                <p>Date: ${formattedDate}</p>
+                                <p>Time: ${data.startTime}</p>
+                                <p>Duration: ${data.hours} hour${data.hours !== 1 ? 's' : ''}</p>
+                                <p>Estimated Total: ₱${estimatedCost.toFixed(2)}</p>
+                            </div>
+                            <p class="mt-4">We will contact you at <strong>${data.email}</strong> or <strong>${data.phone}</strong> to confirm and provide payment instructions.</p>
+                        </div>
+                    `;
+                    confirmationDiv.classList.remove('hidden');
+                    confirmationDiv.scrollIntoView({ behavior: "smooth" });
+                }
+                
+                function handleReset() {
+                    bookingForm.reset();
+                    estimatedCost = null;
+                    updateSubmitButton(null);
+                    costBreakdown.classList.add('hidden');
+                    confirmationDiv.classList.add('hidden');
+                    document.getElementById('projector').value = 'false';
+                    document.getElementById('speakerMic').value = 'false';
+                    document.getElementById('checkbox-projector').classList.remove('checked');
+                    document.getElementById('checkbox-speakerMic').classList.remove('checked');
+                    ['studentId', 'fullName', 'email', 'phone', 'date', 'startTime', 'hours'].forEach(id => toggleError(id, ''));
+                }
+
+                calculateButton.addEventListener('click', handleCalculate);
+                bookingForm.addEventListener('submit', handleSubmit);
+                resetButton.addEventListener('click', handleReset);
+                
+                // Checkbox logic
+                function setupCheckbox(containerId, inputId) {
+                    const container = document.getElementById(containerId);
+                    const input = document.getElementById(inputId);
+                    container.addEventListener('click', () => {
+                        const isChecked = input.value === 'true';
+                        input.value = !isChecked;
+                        container.classList.toggle('checked', !isChecked);
+                        estimatedCost = null;
+                        updateSubmitButton(null);
+                    });
+                }
+                setupCheckbox('checkbox-projector', 'projector');
+                setupCheckbox('checkbox-speakerMic', 'speakerMic');
+            }
+
+            // --- 5. Initial App State ---
+            updateActiveNav('home');
+        });
+    </script>
+</body>
+</html>

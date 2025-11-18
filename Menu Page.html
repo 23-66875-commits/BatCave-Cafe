@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu | The Malvar Bat Cave Cafe</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style type="text/css">
+      body {
+        background-color: #0f172a; /* slate-900 */
+        color: #e2e8f0; /* slate-300 */
+      }
+      h1 {
+        font-size: 3rem; /* 48px */
+        line-height: 1;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 2.25rem; /* 36px */
+        line-height: 2.5rem;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 1.5rem; /* 24px */
+        line-height: 2rem;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-900 text-slate-300" data-current-page="menu">
+
+    <!-- header will be injected here from Header.html -->
+    <div id="header-placeholder"></div>
+
+    <script>
+      // Load shared header fragment and insert scripts so header behaves same across pages
+      (async function loadHeader() {
+        try {
+          const res = await fetch('Header.html');
+          if (!res.ok) return;
+          const text = await res.text();
+          const container = document.createElement('div');
+          container.innerHTML = text;
+
+          // move header element into the document (at top of body)
+          const header = container.querySelector('header') || container.firstElementChild;
+          if (header) {
+            document.body.insertBefore(header, document.getElementById('header-placeholder'));
+          }
+
+          // execute any inline scripts from the fragment by creating new script elements
+          container.querySelectorAll('script').forEach(s => {
+            const ns = document.createElement('script');
+            if (s.src) ns.src = s.src;
+            else ns.textContent = s.textContent;
+            document.head.appendChild(ns);
+          });
+
+          // remove placeholder
+          const ph = document.getElementById('header-placeholder');
+          if (ph) ph.remove();
+        } catch (e) {
+          console.error('Failed to load header:', e);
+        }
+      })();
+    </script>
+
+    <div class="min-h-screen py-12 px-4">
+      <div class="container mx-auto max-w-6xl">
+        
+        <div class="text-center mb-16">
+          <h1 class="text-slate-100 mb-4">Our Menu</h1>
+          <p class="text-lg text-slate-300">
+            Fuel your study sessions with our premium coffee and delicious bites
+          </p>
+        </div>
+
+        <div class="mb-16">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="text-violet-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5.1a2 2 0 0 1 2 1.9v2.2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7a2 2 0 0 1 2-1.9Z"/><path d="M11 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M6 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M10 5V2"/><path d="M14 5V2"/></svg>
+            </div>
+            <h2 class="text-slate-100">Specialty Coffee</h2>
+          </div>
+          
+          <div class="overflow-x-auto pb-4 -mx-4 px-4">
+            <div class="flex gap-6 w-max">
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1603828778059-6e52a251fd2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcGVjaWFsdHklMjBjb2ZmZWUlMjBsYXR0ZXxlbnwxfHx8fDE3NjMzOTAzMjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="The Bat Brew (Signature)"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">The Bat Brew (Signature)</h3>
+                  <p class="text-sm text-slate-400 mb-3">Our signature dark roast blend</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱120</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1619286310410-a95de97b0aec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxaY2hvY29sYXRlJTIwbW9jaGElMjBjb2ZmZWV8ZW58MXx8fHwxNzYzMzkwMzIzfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Midnight Mocha"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Midnight Mocha</h3>
+                  <p class="text-sm text-slate-400 mb-3">Rich chocolate meets espresso</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱135</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1669872484166-e11b9638b50e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbWVyaWNhbm8lMjBjb2ZmZWV8ZW58MXx8fHwxNzYzMzU5NjE5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Dark Roast Americano"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Dark Roast Americano</h3>
+                  <p class="text-sm text-slate-400 mb-3">Bold and smooth</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱95</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1708430651927-20e2e1f1e8f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXBwdWNjaW5vJTIwY29mZmVlfGVufDF8fHx8MTc2MzM4ODc2Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Caramel Macchiato"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Caramel Macchiato</h3>
+                  <p class="text-sm text-slate-400 mb-3">Sweet and creamy</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱125</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1603828778059-6e52a251fd2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcGVjaWFsdHklMjBjb2ZmZWUlMjBsYXR0ZXxlbnwxfHx8fDE3NjMzOTAzMjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Vanilla Latte"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Vanilla Latte</h3>
+                  <p class="text-sm text-slate-400 mb-3">Classic and comforting</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱115</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpY2VkJTIwY29mZmVlfGVufDF8fHx8MTc2MzMzNzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Iced Coffee"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Iced Coffee</h3>
+                  <p class="text-sm text-slate-400 mb-3">Cold brew perfection</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱110</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1708430651927-20e2e1f1e8f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXBwdWNjaW5vJTIwY29mZmVlfGVufDF8fHx8MTc2MzM4ODc2Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Cappuccino"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Cappuccino</h3>
+                  <p class="text-sm text-slate-400 mb-3">Perfectly foamed</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱105</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1638543284847-3a6bed3e1689?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZmZvZ2F0byUyMGRlc3NlcnQlMjBjb2ZmZWV8ZW58MXx8fHwxNzYzMzU3MDA4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Affogato"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Affogato</h3>
+                  <p class="text-sm text-slate-400 mb-3">Espresso over ice cream</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱140</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <p class="text-sm text-slate-500 text-center mt-4">
+            ← Scroll to see more items →
+          </p>
+        </div>
+
+        <div class="mb-16">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="text-violet-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 12 1.63 1.63a6.45 6.45 0 0 0 9.12 0l1.63-1.63c4.25-.09 7.74 3.42 7.74 7.74V22H2v-2.26c0-4.32 3.49-7.83 7.74-7.74Z"/><path d="M14.5 12.5a2.5 2.5 0 0 1-5 0"/><path d="M12 2v10"/></svg>
+            </div>
+            <h2 class="text-slate-100">Pastries & Baked Goods</h2>
+          </div>
+          
+          <div class="overflow-x-auto pb-4 -mx-4 px-4">
+            <div class="flex gap-6 w-max">
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1566154492603-00961cd93b3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWQlMjB2ZWx2ZXQlMjBtdWZmaW58ZW58MXx8fHwxNzYzMzkwMzI0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Red Velvet Muffin"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Red Velvet Muffin</h3>
+                  <p class="text-sm text-slate-400 mb-3">Soft and decadent</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱65</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1712723247648-64a03ba7c333?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcm9pc3NhbnQlMjBwYXN0cnl8ZW58MXx8fHwxNzYzMzQyMjI3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Chocolate Croissant"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Chocolate Croissant</h3>
+                  <p class="text-sm text-slate-400 mb-3">Buttery and flaky</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱75</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1654969099487-90551e2d81be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiaWVrZWR8ZW58MXx8fHwxNzYzMzkwNDYxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Blueberry Scone"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Blueberry Scone</h3>
+                  <p class="text-sm text-slate-400 mb-3">Fresh and fruity</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱70</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1645995575875-ea6511c9d127?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcnVzdHklMjBiaXNjdWl0fGVufDF8fHx8MTc2MzM2MDY2Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Cinnamon Roll"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Cinnamon Roll</h3>
+                  <p class="text-sm text-slate-400 mb-3">Warm and gooey</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱80</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaG9jb2xhdGUlMjBicm93bmllfGVufDF8fHx8MTc2MzI5NjM3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Double Chocolate Brownie"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Double Chocolate Brownie</h3>
+                  <p class="text-sm text-slate-400 mb-3">Fudgy and rich</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱85</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1566154492603-00961cd93b3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWQlMjB2ZWx2ZXQlMjBtdWZmaW58ZW58MXx8fHwxNzYzMzkwMzI0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Banana Bread"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Banana Bread</h3>
+                  <p class="text-sm text-slate-400 mb-3">Moist and sweet</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱60</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <p class="text-sm text-slate-500 text-center mt-4">
+            ← Scroll to see more items →
+          </p>
+        </div>
+
+        <div class="mb-16">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="text-violet-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 12 1.63 1.63a6.45 6.45 0 0 0 9.12 0l1.63-1.63c4.25-.09 7.74 3.42 7.74 7.74V22H2v-2.26c0-4.32 3.49-7.83 7.74-7.74Z"/><path d="M14.5 12.5a2.5 2.5 0 0 1-5 0"/><path d="M12 2v10"/></svg>
+            </div>
+            <h2 class="text-slate-100">Snacks & Meals</h2>
+          </div>
+          
+          <div class="overflow-x-auto pb-4 -mx-4 px-4">
+            <div class="flex gap-6 w-max">
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1669624272709-c5b91f66b1b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuYWNob3MlMjBjaGVlc2V8ZW58MXx8fHwxNzYzMzAwODEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Nachos Grande"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Nachos Grande</h3>
+                  <p class="text-sm text-slate-400 mb-3">Perfect for sharing</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱180</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1639744210631-209fce3e256c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsb2FkZWQlMjBmcmllc3xlbnwxfHx8fDE3NjMzOTAzMjR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Loaded Fries"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Loaded Fries</h3>
+                  <p class="text-sm text-slate-400 mb-3">Crispy and loaded</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱150</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1665233272941-ae681d11fc06?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjlyB0b2FzdHl8ZW58MXx8fHwxNzYzMzYyNjYyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Club Sandwich"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Club Sandwich</h3>
+                  <p class="text-sm text-slate-400 mb-3">Triple-decker delight</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱165</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1550304943-4f24f54ddde9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYWVzYXIlMjBzYWxhZHxlbnwxfHx8fDE3NjMyOTQ3MDB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Caesar Salad"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Caesar Salad</h3>
+                  <p class="text-sm text-slate-400 mb-3">Fresh and crispy</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱140</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiaGlnaHRlciUyMHdhcm0lMjBmb29kfGVufDF8fHx8MTc2MzI5ODEyMXww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Buffalo Wings"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Buffalo Wings</h3>
+                  <p class="text-sm text-slate-400 mb-3">Spicy and tangy</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱195</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1588013273468-315fd88ea34c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwYXN0YSUyMGNhcmJvbmFyYXxlbnwxfHx8fDE3NjMzODE4NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Carbonara Pasta"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Carbonara Pasta</h3>
+                  <p class="text-sm text-slate-400 mb-3">Creamy and savory</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱175</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="w-64 flex-shrink-0 bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/10">
+                <div class="h-48 bg-slate-700 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1669624272709-c5b91f66b1b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuYWNob3MlMjBjaGVlc2V8ZW58MXx8fHwxNzYzMzAwODEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Quesadilla"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300 fallback-image"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-slate-100 mb-1">Quesadilla</h3>
+                  <p class="text-sm text-slate-400 mb-3">Cheesy and filling</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-violet-500">₱155</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <p class="text-sm text-slate-500 text-center mt-4">
+            ← Scroll to see more items →
+          </p>
+        </div>
+
+        
+        <hr class="border-slate-800 my-16" />
+
+        <div class="mt-16 mb-12">
+          <h2 class="text-slate-100 mb-6 text-center">Complete Price List</h2>
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
+            <table class="w-full">
+              <thead>
+                <tr class="bg-black border-b border-slate-700">
+                  <th class="text-left py-4 px-6 text-violet-500">Category</th>
+                  <th class="text-left py-4 px-6 text-violet-500">Item Name</th>
+                  <th class="text-right py-4 px-6 text-violet-500">Price (PHP)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300">
+                    <div class="flex items-center gap-2">
+                      <svg class="text-violet-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5.1a2 2 0 0 1 2 1.9v2.2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7a2 2 0 0 1 2-1.9Z"/><path d="M11 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M6 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4"/><path d="M10 5V2"/><path d="M14 5V2"/></svg>
+                      <span>Specialty Coffee</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6 text-slate-200">The Bat Brew (Signature)</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱120</td>
+                </tr>
+                
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Midnight Mocha</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱135</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Dark Roast Americano</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱95</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Caramel Macchiato</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱125</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Vanilla Latte</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱115</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Iced Coffee</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱110</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Cappuccino</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱105</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Affogato</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱140</td>
+                </tr>
+                
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300">
+                    <div class="flex items-center gap-2">
+                      <svg class="text-violet-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 12 1.63 1.63a6.45 6.45 0 0 0 9.12 0l1.63-1.63c4.25-.09 7.74 3.42 7.74 7.74V22H2v-2.26c0-4.32 3.49-7.83 7.74-7.74Z"/><path d="M14.5 12.5a2.5 2.5 0 0 1-5 0"/><path d="M12 2v10"/></svg>
+                      <span>Pastries</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6 text-slate-200">Red Velvet Muffin</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱65</td>
+                </tr>
+                
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Chocolate Croissant</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱75</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Blueberry Scone</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱70</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Cinnamon Roll</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱80</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Double Chocolate Brownie</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱85</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Banana Bread</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱60</td>
+                </tr>
+                
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300">
+                    <div class="flex items-center gap-2">
+                      <svg class="text-violet-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4l-3 8h12l-3-8h4c1.1 0 2-.9 2-2V2H3Z"/><line x1="7" y1="2" x2="7" y2="2"/><line x1="17" y1="2" x2="17" y2="2"/></svg>
+                      <span>Snacks</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6 text-slate-200">Nachos Grande</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱180</td>
+                </tr>
+                
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Loaded Fries</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱150</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Club Sandwich</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱165</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Caesar Salad</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱140</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Buffalo Wings</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱195</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Carbonara Pasta</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱175</td>
+                </tr>
+                <tr class="last:border-b-0 hover:bg-slate-700/30 transition-colors">
+                  <td class="py-4 px-6 text-slate-300"></td>
+                  <td class="py-4 px-6 text-slate-200">Quesadilla</td>
+                  <td class="py-4 px-6 text-right text-slate-200">₱155</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        
+        <hr class="border-slate-800 my-16" />
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-black/50 border border-violet-800 rounded-lg p-6">
+            <h3 class="text-slate-100 mb-4">Room Booking Rates</h3>
+            <div class="space-y-2 text-slate-300">
+              <div class="flex justify-between">
+                <span>Base Hourly Rate</span>
+                <span class="text-violet-500">₱50.00 / hour</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Minimum Fee (under 2 hrs)</span>
+                <span class="text-violet-500">₱75.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-black/50 border border-violet-800 rounded-lg p-6">
+            <h3 class="text-slate-100 mb-4">Equipment Rental</h3>
+            <div class="space-y-2 text-slate-300">
+              <div class="flex justify-between">
+                <span>Projector</span>
+                <span class="text-violet-500">₱150.00 / hour</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Speaker & Microphone</span>
+                <span class="text-violet-500">₱150.00 / hour</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 bg-slate-800/30 border border-slate-700 rounded-lg p-6 text-center">
+          <p class="text-slate-400">
+            Prices are subject to change. Monthly events and special promotions announced
+            on our social media. All items freshly prepared to fuel your study sessions!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer (inserted from Footer.html; adjusted to remove absolute positioning and outer html/body) -->
+    <footer class="bg-slate-900 border-t border-slate-800 mt-12 w-full">
+      <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Location -->
+          <div>
+            <div class="flex items-center gap-2 text-violet-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <h3>Location</h3>
+            </div>
+            <p class="text-slate-400">
+              Near Batangas State University<br />
+              Malvar Campus<br />
+              Malvar, Batangas
+            </p>
+          </div>
+
+          <!-- Hours -->
+          <div>
+            <div class="flex items-center gap-2 text-violet-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <h3>Hours</h3>
+            </div>
+            <p class="text-slate-400">
+              Open Late for Night Study Sessions<br />
+              Perfect for students & groups<br />
+              Room bookings available
+            </p>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <div class="flex items-center gap-2 text-violet-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 5.1a2 2 0 0 1 2 1.9v2.2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7a2 2 0 0 1 2-1.9Z" />
+                <path d="M11 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4" />
+                <path d="M6 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4" />
+                <path d="M10 5V2" />
+                <path d="M14 5V2" />
+              </svg>
+              <h3>Contact</h3>
+            </div>
+            <p class="text-slate-400">
+              Owner: Nina Sy<br />
+              Follow us on social media<br />
+              for updates & events
+            </p>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-800 mt-8 pt-8 text-center text-slate-500">
+          <p>© 2024 The Malvar Bat Cave Cafe. Your premier late-night study spot.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const ERROR_IMG_SRC =
+        'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODgiIGhlaWdodD0iODgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBvcGFjaXR5PSIuMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIzLjciPjxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iNiIvPjxwYXRoIGQ9Im0xNiA1OCAxNi0xOCAzMiAzMiIvPjxjaXJjbGUgY3g9IjUzIiBjeT0iMzUiIHI9IjciLz48L2xzZz4KCg==';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // Find all images that should have the fallback applied
+        const images = document.querySelectorAll('img.fallback-image');
+
+        images.forEach(imgElement => {
+          imgElement.onerror = function() {
+            // 1. Disable further error handlers
+            imgElement.onerror = null;
+
+            // 2. Get the current wrapper div (h-48 bg-slate-700 overflow-hidden)
+            const wrapperDiv = imgElement.parentNode; 
+            
+            // 3. Set the error wrapper styles
+            // The class manipulation below attempts to preserve size classes while adding fallback styling.
+            wrapperDiv.className = imgElement.className.replace('object-cover', '').replace('hover:scale-105', '') + ' inline-block bg-gray-100 text-center align-middle';
+
+            // 4. Replace the image content with the error SVG
+            wrapperDiv.innerHTML = `
+              <div class="flex items-center justify-center w-full h-full">
+                <img src="${ERROR_IMG_SRC}" alt="Error loading image" data-original-url="${imgElement.src}" class="w-full h-full object-contain" />
+              </div>
+            `;
+          };
+        });
+      });
+    </script>
+    
+  </body>
+</html>

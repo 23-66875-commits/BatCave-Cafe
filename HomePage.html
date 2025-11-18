@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Malvar Bat Cave Cafe</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style type="text/css">
+      body {
+        background-color: #0f172a; /* slate-900 */
+        color: #e2e8f0; /* slate-300 */
+      }
+      h1 {
+        font-size: 3rem; /* 48px */
+        line-height: 1;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 2.25rem; /* 36px */
+        line-height: 2.5rem;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 1.5rem; /* 24px */
+        line-height: 2rem;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-900 text-slate-300">
+    
+    <!-- === Header with Integrated Logo === -->
+    <header class="bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          
+          <!-- LOGO START -->
+          <div class="flex items-center gap-3">
+            <a href="#home" class="hover:opacity-80 transition-opacity flex items-center gap-3">
+              <div class="relative">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-violet-500"
+                >
+                  <!-- Bat wings -->
+                  <path
+                    d="M24 18C24 18 18 14 12 16C6 18 4 24 8 26C12 28 16 24 16 24C16 24 14 30 16 32C18 34 22 32 24 28C26 32 30 34 32 32C34 30 32 24 32 24C32 24 36 28 40 26C44 24 42 18 36 16C30 14 24 18 24 18Z"
+                    fill="currentColor"
+                  />
+                  <!-- Coffee cup integrated below -->
+                  <circle cx="24" cy="32" r="6" fill="#8b5cf6" />
+                  <rect x="22" y="37" width="4" height="2" rx="1" fill="#8b5cf6" />
+                  
+                  <!-- Steam -->
+                  <path
+                    d="M20 30C20 30 20 28 21 28C22 28 22 29 23 29"
+                    stroke="#e2e8f0"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    fill="none"
+                  />
+                  <path
+                    d="M26 30C26 30 26 28 27 28C28 28 28 29 29 29"
+                    stroke="#e2e8f0"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-violet-500 text-sm font-semibold">The Malvar</span>
+                <span class="text-slate-100 -mt-1 text-lg font-bold">Bat Cave Cafe</span>
+              </div>
+            </a>
+          </div>
+          <!-- LOGO END -->
+          
+          <!-- Placeholder for Navigation Links -->
+          <div class="hidden md:flex items-center gap-6">
+            <a href="Menu Page.html" class="text-slate-300 hover:text-violet-400 transition-colors">Menu</a>
+            <a href="Booking Page.html" class="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg transition-colors">Book a Room</a>
+          </div>
+          
+          <!-- Placeholder for Mobile Menu Toggle -->
+          <button class="md:hidden text-slate-300 hover:text-violet-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+          </button>
+          
+        </div>
+      </div>
+    </header>
+    <!-- === End Header === -->
+    
+    <div class="min-h-screen">
+      <!-- Hero Section -->
+      <section class="relative bg-gradient-to-b from-black to-slate-900 py-20 px-4">
+        <div class="container mx-auto">
+          <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-slate-100 mb-6">
+              Welcome to The Malvar Bat Cave Cafe
+            </h1>
+            <p class="text-xl text-slate-300 mb-8">
+              The premier late-night study, social, and coffee spot near Batangas
+              State University Malvar Campus. Where night owls gather to study,
+              collaborate, and fuel their ambitions.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="Menu Page.html"
+                class="bg-violet-600 hover:bg-violet-700 text-white px-8 py-3 rounded-lg transition-colors"
+              >
+                View Menu
+              </a>
+              <a
+                href="Booking Page.html"
+                class="bg-violet-900 hover:bg-violet-800 text-white px-8 py-3 rounded-lg border border-violet-700 transition-colors"
+              >
+                Book a Room
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mission Statement -->
+      <section class="py-16 px-4 bg-slate-900/50">
+        <div class="container mx-auto max-w-3xl text-center">
+          <h2 class="text-slate-100 mb-6">Our Mission</h2>
+          <p class="text-lg text-slate-300">
+            To provide a welcoming, focused environment where BatStateU students
+            can study late into the night, collaborate on projects, and enjoy
+            quality coffee and snacks. We're more than a cafe - we're your
+            academic sanctuary.
+          </p>
+        </div>
+      </section>
+
+      <!-- Features Grid -->
+      <section class="py-16 px-4">
+        <div class="container mx-auto">
+          <h2 class="text-center text-slate-100 mb-12">Why Choose Bat Cave?</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <div
+              class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-violet-500 transition-colors"
+            >
+              <div class="text-violet-500 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                </svg>
+              </div>
+              <h3 class="text-slate-100 mb-2">Late Night Hours</h3>
+              <p class="text-slate-400">
+                Open when you need us most - perfect for night owls and exam
+                cramming
+              </p>
+            </div>
+            
+            <div
+              class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-violet-500 transition-colors"
+            >
+              <div class="text-violet-500 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 5.1a2 2 0 0 1 2 1.9v2.2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7a2 2 0 0 1 2-1.9Z" />
+                  <path d="M11 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4" />
+                  <path d="M6 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4" />
+                  <path d="M10 5V2" /><path d="M14 5V2" />
+                </svg>
+              </div>
+              <h3 class="text-slate-100 mb-2">Premium Coffee</h3>
+              <p class="text-slate-400">
+                Specialty brews and signature drinks to fuel your study sessions
+              </p>
+            </div>
+            
+            <div
+              class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-violet-500 transition-colors"
+            >
+              <div class="text-violet-500 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 class="text-slate-100 mb-2">Private Rooms</h3>
+              <p class="text-slate-400">
+                Bookable study rooms with projectors and audio equipment available
+              </p>
+            </div>
+            
+            <div
+              class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-violet-500 transition-colors"
+            >
+              <div class="text-violet-500 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12.55a11 11 0 0 1 14 0" />
+                  <path d="M2 8.82a19 19 0 0 1 20 0" />
+                  <path d="M8 16.29a5 5 0 0 1 8 0" />
+                  <line x1="12" y1="20" x2="12.01" y2="20" />
+                </svg>
+              </div>
+              <h3 class="text-slate-100 mb-2">Study-Friendly</h3>
+              <p class="text-slate-400">
+                Fast WiFi, comfortable seating, and the perfect atmosphere to
+                focus
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Items -->
+      <section class="py-16 px-4 bg-slate-900/50">
+        <div class="container mx-auto">
+          <h2 class="text-center text-slate-100 mb-12">
+            Featured Menu Items
+          </h2>
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+          >
+            
+            <div
+              class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-colors"
+            >
+              <div class="h-48 bg-slate-700">
+                <img
+                  src="Bat Cave Cafe (The Bat Brew).png"
+                  alt="The Bat Brew"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-slate-100 mb-2">The Bat Brew</h3>
+                <p class="text-slate-400 mb-4">Our signature coffee blend</p>
+                <p class="text-violet-500">₱120</p>
+              </div>
+            </div>
+            
+            <div
+              class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-colors"
+            >
+              <div class="h-48 bg-slate-700">
+                <img
+                  src="Bat Cave Cafe (Midnight Mocha.png"
+                  alt="Midnight Mocha"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-slate-100 mb-2">Midnight Mocha</h3>
+                <p class="text-slate-400 mb-4">Rich chocolate meets espresso</p>
+                <p class="text-violet-500">₱135</p>
+              </div>
+            </div>
+            
+            <div
+              class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-violet-500 transition-colors"
+            >
+              <div class="h-48 bg-slate-700">
+                <img
+                  src="Bat Cave Cafe (Nachos Grande).png"
+                  alt="Nachos Grande"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-slate-100 mb-2">Nachos Grande</h3>
+                <p class="text-slate-400 mb-4">
+                  Perfect for sharing while studying
+                </p>
+                <p class="text-violet-500">₱180</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="text-center mt-8">
+            <a
+              href="Menu Page.html"
+              class="text-violet-500 hover:text-violet-400 transition-colors"
+            >
+              View Full Menu →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="py-16 px-4 bg-gradient-to-b from-black to-slate-900">
+        <div class="container mx-auto max-w-3xl text-center">
+          <h2 class="text-slate-100 mb-6">Ready to Book Your Study Space?</h2>
+          <p class="text-lg text-slate-300 mb-8">
+            Reserve a private room with projector and audio equipment. Perfect
+            for group projects, presentations, or focused study sessions.
+          </p>
+          <a
+            href="booking.html"
+            class="bg-violet-600 hover:bg-violet-700 text-white px-8 py-3 rounded-lg transition-colors"
+          >
+            Book Now
+          </a>
+        </div>
+      </section>
+    </div>
+    
+  </body>
+</html>

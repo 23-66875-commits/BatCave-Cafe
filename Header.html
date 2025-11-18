@@ -1,0 +1,96 @@
+<!-- Header fragment: include this file into pages via fetch and DOM insertion -->
+<header id="main-header" class="bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 sticky top-0 z-50">
+  <div class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      
+      <a
+        href="#home"
+        class="hover:opacity-80 transition-opacity"
+        data-page-id="home"
+        aria-label="Navigate to Home"
+      >
+        <span class="text-xl font-bold text-violet-500">BAT CAVE CAFE</span>
+      </a>
+
+      <nav id="desktop-nav" class="hidden md:flex items-center gap-8">
+        <a href="HomePage.html" class="nav-link transition-colors text-slate-300 hover:text-violet-400" data-page-id="home">Home</a>
+        <a href="Menu Page.html" class="nav-link transition-colors text-slate-300 hover:text-violet-400" data-page-id="menu">Menu</a>
+        <a href="Booking Page.html" class="nav-link transition-colors text-slate-300 hover:text-violet-400" data-page-id="booking">Book a Room</a>
+      </nav>
+
+      <button
+        id="mobile-menu-toggle"
+        class="md:hidden text-slate-300 hover:text-violet-400"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <svg id="menu-icon" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg id="x-icon" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <nav 
+      id="mobile-nav" 
+      class="hidden mt-4 pb-4 flex flex-col gap-4 border-t border-slate-800 pt-4"
+    >
+      <a href="HomePage.html" class="nav-link text-left transition-colors text-slate-300 hover:text-violet-400" data-page-id="home">Home</a>
+      <a href="Menu Page.html" class="nav-link text-left transition-colors text-slate-300 hover:text-violet-400" data-page-id="menu">Menu</a>
+      <a href="Booking Page.html" class="nav-link text-left transition-colors text-slate-300 hover:text-violet-400" data-page-id="booking">Book a Room</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Header initialization script (keeps behavior identical to previous header)
+  (function initHeader() {
+    const mobileToggle = document.getElementById('mobile-menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const menuIcon = document.getElementById('menu-icon');
+    const xIcon = document.getElementById('x-icon');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const currentPageDisplay = document.getElementById('current-page-display');
+    const body = document.body;
+
+    function toggleMobileMenu() {
+      const isMenuOpen = mobileNav.classList.toggle('hidden');
+      mobileToggle.setAttribute('aria-expanded', !isMenuOpen);
+      menuIcon.classList.toggle('hidden', !isMenuOpen);
+      xIcon.classList.toggle('hidden', isMenuOpen);
+    }
+
+    function updateActivePage(pageId) {
+      body.setAttribute('data-current-page', pageId);
+
+      if (currentPageDisplay) currentPageDisplay.textContent = pageId;
+
+      navLinks.forEach(link => {
+        const linkPageId = link.getAttribute('data-page-id');
+        const isActive = linkPageId === pageId;
+
+        link.classList.toggle('text-violet-500', isActive);
+        link.classList.toggle('text-slate-300', !isActive);
+        link.classList.toggle('hover:text-violet-400', !isActive);
+      });
+    }
+
+    if (mobileToggle && mobileNav) mobileToggle.addEventListener('click', toggleMobileMenu);
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        const href = link.getAttribute('href') || '';
+
+        // SPA-style for internal anchors only
+        if (href.startsWith('#')) {
+          event.preventDefault();
+          const pageId = link.getAttribute('data-page-id');
+          updateActivePage(pageId);
+          if (!mobileNav.classList.contains('hidden')) toggleMobileMenu();
+        }
+        // links to actual pages (HomePage.html, Menu Page.html) will navigate normally
+      });
+    });
+
+    // Initialize using body attribute (pages should set data-current-page)
+    updateActivePage(body.getAttribute('data-current-page') || 'home');
+  })();
+</script>

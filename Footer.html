@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bat Cave Cafe Footer</title>
+
+    <!-- 1. Include Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. Add base styles for h3 -->
+    <style type="text/css">
+      body {
+        background-color: #0f172a; /* slate-900 */
+        color: #e2e8f0; /* slate-300 */
+      }
+      h3 {
+        font-size: 1.5rem; /* 24px */
+        line-height: 2rem;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-900 text-slate-300">
+    <!-- 
+      This is the HTML you provided. 
+      It is placed at the bottom of the page using 'absolute bottom-0 w-full' for demonstration.
+    -->
+    <footer
+      class="bg-slate-900 border-t border-slate-800 mt-auto absolute bottom-0 w-full"
+    >
+      <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Location -->
+          <div>
+            <div class="flex items-center gap-2 text-violet-500 mb-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <h3>Location</h3>
+            </div>
+            <p class="text-slate-400">
+              Near Batangas State University
+              <br />
+              Malvar Campus
+              <br />
+              Malvar, Batangas
+            </p>
+          </div>
+
+          <!-- Hours -->
+          <div>
+            <div class="flex items-center gap-2 text-violet-500 mb-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <h3>Hours</h3>
+            </div>
+            <p class="text-slate-400">
+              Open Late for Night Study Sessions
+              <br />
+              Perfect for students & groups
+              <br />
+              Room bookings available
+            </p>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <div class="flex items-center gap-2 text-violet-500 mb-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M17 5.1a2 2 0 0 1 2 1.9v2.2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V7a2 2 0 0 1 2-1.9Z"
+                />
+                <path d="M11 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4" />
+                <path d="M6 14v4a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-4" />
+                <path d="M10 5V2" />
+                <path d="M14 5V2" />
+              </svg>
+              <h3>Contact</h3>
+            </div>
+            <p class="text-slate-400">
+              Owner: Nina Sy
+              <br />
+              Follow us on social media
+              <br />
+              for updates & events
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-slate-800 mt-8 pt-8 text-center text-slate-500"
+        >
+          <p>
+            © 2024 The Malvar Bat Cave Cafe. Your premier late-night study spot.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
